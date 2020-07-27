@@ -12,7 +12,8 @@ if wish == 'N':
     letters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"
 
     length = input('Length: ')
-
+    
+    # Check if input is an integer
     try:
         val = int(length)
     except ValueError:
@@ -22,8 +23,9 @@ if wish == 'N':
     given_name = input('Name: ')
 
     generated_password = list(letters)[random.randint(0, 94)]
-
-    for i in range(int(length)):
+    
+    # Add random letters until the correct length has been achieved
+    for i in range(int(length)-1):
         generated_password += list(letters)[random.randint(0, 94)]
 
     print(generated_password)
@@ -45,8 +47,10 @@ if wish == 'N':
 elif wish == 'E':
     pass
 elif wish == 'C':
+    # Select all the names from the SQLite database
     c.execute("SELECT name FROM main.passwords")
-
+    
+    # Print all of the selected names
     print(c.fetchall())
 
     which_one = input('Which one?: ')
