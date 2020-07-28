@@ -49,19 +49,28 @@ if wish == 'N':
     close_connection()
 
 elif wish == 'E':
-    pass
-elif wish == 'C':
-    c.execute("SELECT name FROM main.passwords")
+    c.execute("SELECT name FROM passwords")
 
     print(c.fetchall())
 
     which_one = input('Which one?: ')
 
-    c.execute("SELECT password FROM main.passwords WHERE name=?", (which_one,))
+    changed_password = input('What would you like to change it to?: ')
+
+    c.execute("UPDATE passwords SET password = (?) WHERE name = ?", (changed_password, which_one))
+
+    close_connection()
+elif wish == 'C':
+    c.execute("SELECT name FROM passwords")
+
+    print(c.fetchall())
+
+    which_one = input('Which one?: ')
+
+    c.execute("SELECT password FROM passwords WHERE name=?", (which_one,))
 
     password_to_be_copied = str(c.fetchone())
-    
-    # Slice the string so that the parentheses don't get copied
+
     pyperclip.copy(password_to_be_copied[1:-2])
 
     close_connection()
